@@ -9,22 +9,6 @@
     // db.sync('http://x.x.x.x/ng-db', {
     //   live: true
     // });
-
-    db.changes({ live: true }).on('change', function(change) {
-      if (!change.deleted) {
-        db.get(change.id, function(err, doc) {
-          $rootScope.$apply(function() {
-            if (err) console.log(err);
-            $rootScope.$broadcast('newTodo', doc);
-          });
-        });
-      } else {
-        $rootScope.$apply(function() {
-          $rootScope.$broadcast('delTodo', change.id);
-        });
-      }
-    });
-
     return db;
   }]);
 
@@ -48,21 +32,39 @@
       };
   }]);
 
-  app.factory('pouchInterface', ['pouch', 'util',
-    function(pouch, util) {
+  app.factory('Todos', ['$rootScope','pouch', 'util',
+    function($rootScope, pouch, util) {
+      var todos = [];
+
+      pouch.changes({ live: true})
+        .on('change', function(change) {
+
+          if (!change.deleted) {
+            pouch.get(change.id).then(function(todo) {
+              $rootScope.$apply(function() {
+                todos.push(todo);
+              });
+            }, function(err) {
+              console.log(err);
+            });
+          } else {
+            for (var i = 0; i < todos.length; ++i) {
+              if (todos[i]._id === change.id)
+                todos.splice(i, 1);
+            }
+          }
+      });
 
       return {
+        todos: todos,
         add: function(text) {
-
           return pouch.post({
             type: 'todo',
             text: text
-          })
-          .then(util.resolve)
-          .catch(util.reject);
+          }).then(util.resolve)
+            .catch(util.reject);
         },
         remove: function(todo) {
-
           return pouch.get(todo._id)
             .then(function(doc) {
               return pouch.remove(doc)
@@ -72,37 +74,27 @@
       };
   }]);
   
-  app.controller('TodoCtrl', ['$scope', 'pouchInterface',
-    function($scope, pouchInterface) {
+  app.controller('TodoCtrl', ['$scope', 'Todos',
+    function($scope, Todos) {
 
-      $scope.todos = [];
+      $scope.todos = Todos.todos;
 
       $scope.submit = function() {
         if ($scope.text !== '')
-          pouchInterface.add($scope.text).then(function(res) {
+          Todos.add($scope.text).then(function(res) {
             $scope.text = '';
           }, function(reason) {
             console.log(reason);
           });
       };
 
-      $scope.remove = function(id) {
-        pouchInterface.remove(id).then(function(res) {
+      $scope.remove = function(todo) {
+        Todos.remove(todo).then(function(res) {
         }, function(reason) {
           console.log(reason);
         });
       };
 
-      $scope.$on('newTodo', function(event, todo) {
-        $scope.todos.push(todo);
-      });
-
-      $scope.$on('delTodo', function(event, id) {
-        for (var i = 0; i < $scope.todos.length; ++i) {
-          if ($scope.todos[i]._id === id)
-            $scope.todos.splice(i, 1);
-        }
-      });
   }]);
 
 })();
