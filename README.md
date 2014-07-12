@@ -4,7 +4,7 @@ pouch-todo
 A simple todo-app similar to TodoMVC, using AngularJS and PouchDB to abstract browser storage and potentially sync to CouchDB. This is based on 
 [a blog post](http://www.mircozeiss.com/sync-multiple-angularjs-apps-without-server-via-pouchdb) by [Mirco Zeiss](https://github.com/zemirco). 
 
-The blog post didn't include the full source, and both AngularJS and PouchDB has been updated after the publication, so there is some differences in used syntax and other refactoring present. In particular, the broadcasting logic of the blog post has been removed, but look at the initial commit if you are interested in that implementation.
+The blog post didn't include the full source (HMTL templates), and both AngularJS and PouchDB has been updated after the publication, so there is some differences in used syntax and other refactoring present. In particular, the broadcasting logic of the blog post has been removed, but look at the initial commit if you are interested in that implementation.
 
 
 Requirements
