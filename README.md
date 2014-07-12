@@ -24,6 +24,17 @@ $ cd pouch-todo
 $ python -m SimpleHTTPServer
 ```
 
+- if you want to try out the CouchDB synchronization, uncomment the following lines in ```pouch-todo.js``` and add the correct URL for your CouchDB instance
+
+```javascript
+    var db = new PouchDB('ng-pouch');
+    // db.sync('http://x.x.x.x/ng-db', {
+    //   live: true
+    // });
+
+    db.changes({ live: true }).on('change', function(change) {
+```
+
 Notes
 -----
 
