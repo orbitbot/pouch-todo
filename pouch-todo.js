@@ -3,14 +3,14 @@
 
   var app = angular.module('app', []);
 
-  app.factory('pouch', ['$rootScope', function($rootScope) {
+  app.factory('pouch',  function() {
 
     var db = new PouchDB('ng-pouch');
     // db.sync('http://x.x.x.x/ng-db', {
     //   live: true
     // });
     return db;
-  }]);
+  });
 
   app.factory('util', ['$q', '$rootScope',
     function($q, $rootScope) {
@@ -36,8 +36,8 @@
     function($rootScope, pouch, util) {
       var todos = [];
 
-      pouch.changes({ live: true})
-        .on('change', function(change) {
+      pouch.changes({ live: true })
+        .on('change', function handleUpdate(change) {
 
           if (!change.deleted) {
             pouch.get(change.id).then(function(todo) {
