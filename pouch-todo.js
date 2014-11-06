@@ -16,18 +16,14 @@
     function($q, $rootScope) {
       return {
         resolve: function(value) {
-          var deferred = $q.defer();
           $rootScope.$apply(function() {
-            deferred.resolve(value);
+            return $q.when(value);
           });
-          return deferred;
         },
         reject: function(error) {
-          var deferred = $q.defer();
           $rootScope.$apply(function() {
-            deferred.reject(error);
+            return $q.reject(error);
           });
-          return deferred;
         }
       };
   }]);
@@ -73,7 +69,8 @@
             .then(function(doc) {
               return pouch.remove(doc)
                 .then(util.resolve, util.reject);
-          }, util.reject);
+            })
+            .catch(util.reject);
         }
       };
   }]);
@@ -87,7 +84,8 @@
         if ($scope.text !== '')
           Todos.add($scope.text).then(function(res) {
             $scope.text = '';
-          }, function(reason) {
+          })
+          .catch(function(reason) {
             console.log(reason);
           });
       };
