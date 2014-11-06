@@ -49,8 +49,12 @@
             });
           } else {
             for (var i = 0; i < todos.length; ++i) {
-              if (todos[i]._id === change.id)
-                todos.splice(i, 1);
+              if (todos[i]._id === change.id) {
+                $rootScope.$apply(function() {
+                  todos.splice(i, 1);
+                });
+                break;
+              }
             }
           }
       });
