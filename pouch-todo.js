@@ -71,8 +71,8 @@
       };
 
       $scope.remove = function(todo) {
-        Todos.remove(todo).then(function(res) {
-        }, function(reason) {
+        Todos.remove(todo)
+        .catch(function(reason) {
           console.log(reason);
         });
       };
