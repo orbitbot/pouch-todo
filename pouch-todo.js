@@ -12,8 +12,28 @@
     return db;
   });
 
-  app.factory('Todos', ['$rootScope', '$q', 'pouch',
-    function($rootScope, $q, pouch) {
+  app.factory('util', ['$q', '$rootScope',
+    function($q, $rootScope) {
+      return {
+        resolve: function(value) {
+          var deferred = $q.defer();
+          $rootScope.$apply(function() {
+            deferred.resolve(value);
+          });
+          return deferred;
+        },
+        reject: function(error) {
+          var deferred = $q.defer();
+          $rootScope.$apply(function() {
+            deferred.reject(error);
+          });
+          return deferred;
+        }
+      };
+  }]);
+
+  app.factory('Todos', ['$rootScope','pouch', 'util',
+    function($rootScope, pouch, util) {
       var todos = [];
 
       pouch.changes({ live: true })
@@ -45,13 +65,15 @@
           return pouch.post({
             type: 'todo',
             text: text
-          });
+          }).then(util.resolve)
+            .catch(util.reject);
         },
         remove: function(todo) {
           return pouch.get(todo._id)
             .then(function(doc) {
-              return pouch.remove(doc);
-          });
+              return pouch.remove(doc)
+                .then(util.resolve, util.reject);
+          }, util.reject);
         }
       };
   }]);
