@@ -19,7 +19,7 @@ Requirements
 Try it out
 ----------
 
-- download this repo, and open in your browser of choice. It should work without a server, or then use something like the built-in Python webserver:
+[Try a live demo on GH pages](http://orbitbot.github.io/pouch-todo/), or download this repo and open the index.html file in your browser of choice. It should work without a server, or then use something like the built-in Python webserver:
 
 ```bash
 $ git clone https://github.com/orbitbot/pouch-todo
