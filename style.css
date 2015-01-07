@@ -1,0 +1,98 @@
+/* Ensure that angular ng-cloak attribute works correctly */
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('font/Montserrat-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 14px 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.4em;
+  width: 550px;
+  margin: 0 auto;
+  background-color: #f4f1ed;
+}
+
+.header, .footer {
+  margin-top: 28px;
+}
+
+.header {
+  margin-bottom: 28px;
+}
+
+h1 {
+  text-shadow: 2px 2px 2px rgba(127, 127, 127, 0.3); 
+}
+
+.icon-emo-thumbsup {
+  float:right;
+  text-shadow: 2px 2px 2px rgba(127, 127, 127, 0.3); 
+}
+
+.icon-angle-right {
+  font-size: 175%;
+  display:inline-block;
+  vertical-align:middle;
+  color: #aeaeae;
+}
+
+.icon-cancel {
+  font-size: 120%;
+  margin: 4px;
+  margin-top: -2px;
+  padding: 4px;
+  cursor: pointer;
+  float:right;
+  color: #aeaeae;
+}
+
+.icon-cancel:hover {
+  color: #af323f;
+  padding-bottom: 2px;
+  border-bottom: 4px solid #af323f;
+}
+
+.task {
+  padding: 8px 0 8px 0;
+}
+
+.task:hover {
+  background: #fff;
+}
+
+.align-text {
+  display:inline-block;
+  vertical-align:middle;
+  width: 80%;
+}
+
+input {
+  border: 0;
+  outline: 0;
+  border-bottom: 1px solid black;
+  width: 60%;
+  margin-top: 28px;
+  margin-left: auto;
+  margin-right:auto;
+  display: block;
+  background-color: #f4f1ed;
+  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.footer a {
+  display: block;
+  text-align: center;
+  font-size: 80%;
+  color: #25a1c3;
+}
