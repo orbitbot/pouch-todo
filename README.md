@@ -7,12 +7,15 @@ A simple todo-app similar to TodoMVC, using AngularJS and PouchDB to abstract br
 The blog post didn't include the full source (HMTL templates), and both AngularJS and PouchDB has been updated after the publication, so there is some differences in used syntax and other refactoring present. In particular, the broadcasting logic of the blog post has been removed, but look at the initial commit if you are interested in that implementation.
 
 
+[Try a live demo on GH pages](http://orbitbot.github.io/pouch-todo/)
+
+<br />
 Requirements
 ------------
 
-- a browser that PouchDB supports, see the section Browser Support [here](http://pouchdb.com/learn.html)
+- a browser that PouchDB supports, see the section Browser Support [here](http://pouchdb.com/learn.html)  
 
-
+<br />
 Try it out
 ----------
 
@@ -35,12 +38,14 @@ $ python -m SimpleHTTPServer
     db.changes({ live: true }).on('change', function(change) {
 ```
 
+<br />
 Notes
 -----
 
 - the main font is Montserrat, and the icons were generated using [Fontello](http://fontello.com)
 - the used fonts are covered by the Open Fonts License, see information under the licenses subfolder
 
+<br />
 Licence
 =======
 
